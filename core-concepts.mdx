@@ -1,0 +1,161 @@
+---
+title: Core Concepts
+description: Understand the fundamental concepts behind CodinIT's AI app development platform
+---
+
+## Platform Architecture
+
+CodinIT's architecture is designed around modularity and flexibility. At its core are components that can be mixed and matched to build sophisticated AI applications.
+
+<Columns cols={3}>
+  <Card title="Models" icon="cpu" href="#models">
+    AI models as building blocks.
+  </Card>
+  <Card title="Components" icon="puzzle" href="#components">
+    Reusable UI and logic elements.
+  </Card>
+  <Card title="Pipelines" icon="git-branch" href="#pipelines">
+    Data flow orchestration.
+  </Card>
+</Columns>
+
+## Models
+
+Models are the AI brains of your application. CodinIT supports any model provider, allowing you to choose the best tool for each task.
+
+<Tabs>
+  <Tab title="Text Models" icon="file-text">
+    GPT, Claude, and custom language models for text generation and analysis.
+  </Tab>
+  <Tab title="Vision Models" icon="eye">
+    Image recognition and generation models from various providers.
+  </Tab>
+  <Tab title="Custom Models" icon="settings">
+    Integrate your own trained models via our API.
+  </Tab>
+</Tabs>
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+const model = codinit.model('openai/gpt-4');
+const response = await model.generate({
+  prompt: 'Explain quantum computing',
+  maxTokens: 500
+});
+  ```
+  ```python
+model = codinit.Model('anthropic/claude-3')
+response = model.chat('What is machine learning?')
+  ```
+</CodeGroup>
+
+<Callout kind="tip">Experiment with different models to find the best fit for your use case.</Callout>
+
+## Components
+
+Components are the building blocks of your application's user interface and logic. They encapsulate both frontend and backend functionality.
+
+<Steps>
+  <Step title="Define Component" icon="edit">
+    Create a component with AI capabilities.
+  </Step>
+  <Step title="Configure Model" icon="settings">
+    Attach appropriate AI models.
+  </Step>
+  <Step title="Connect UI" icon="link">
+    Bind to user interface elements.
+  </Step>
+  <Step title="Test Integration" icon="check-circle">
+    Verify the component works end-to-end.
+  </Step>
+</Steps>
+
+<ExpandableGroup>
+  <Expandable title="UI Components" default-open="true">
+    Pre-built interface elements like chat widgets and form inputs.
+  </Expandable>
+  <Expandable title="Logic Components" default-open="false">
+    Backend processing units for data transformation and AI inference.
+  </Expandable>
+  <Expandable title="Custom Components" default-open="false">
+    Build your own components for specific functionality.
+  </Expandable>
+</ExpandableGroup>
+
+## Pipelines
+
+Pipelines orchestrate the flow of data through your AI application, connecting models and components in a logical sequence.
+
+<CodeGroup tabs="YAML,JSON">
+  ```yaml
+pipeline:
+  - input: user_query
+  - model: nlp_processor
+  - component: response_formatter
+  - output: final_response
+  ```
+  ```json
+{
+  "pipeline": [
+    {"step": "input", "type": "text"},
+    {"step": "process", "model": "sentiment"},
+    {"step": "output", "format": "json"}
+  ]
+}
+  ```
+</CodeGroup>
+
+<Callout kind="info">Pipelines enable complex workflows like document analysis followed by summarization.</Callout>
+
+## Framework Integration
+
+CodinIT integrates seamlessly with popular JavaScript frameworks, allowing you to use familiar tools while adding AI capabilities.
+
+<Tabs>
+  <Tab title="React" icon="code">
+    <CodeGroup tabs="JSX,TypeScript">
+      ```jsx
+import { CodinITProvider } from 'codinit/react';
+
+function App() {
+  return (
+    <CodinITProvider config={config}>
+      <ChatBot model="gpt-4" />
+    </CodinITProvider>
+  );
+}
+      ```
+      ```typescript
+import { useCodinIT } from 'codinit/react';
+
+const chatBot = useCodinIT('ChatBot', {
+  model: 'claude-3',
+  theme: 'dark'
+});
+      ```
+    </CodeGroup>
+  </Tab>
+  <Tab title="Vue" icon="code">
+    Vue.js integration with reactive AI components.
+  </Tab>
+  <Tab title="Angular" icon="code">
+    Angular directives for AI-powered applications.
+  </Tab>
+</Tabs>
+
+<Expandable title="Vendor Agnostic Benefits" default-open="false">
+  Our architecture ensures you can switch models or frameworks without major code changes, giving you maximum flexibility.
+</Expandable>
+
+## Best Practices
+
+Follow these guidelines to build maintainable and efficient CodinIT applications.
+
+| Practice | Benefit |
+|----------|---------|
+| Modular Design | Easier testing and maintenance |
+| Model Selection | Optimal performance for each task |
+| Error Handling | Robust application behavior |
+| Caching | Improved response times |
+
+<Callout kind="success">Understanding these core concepts will help you build powerful AI applications with CodinIT.</Callout>

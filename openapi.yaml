@@ -1,0 +1,166 @@
+openapi: '3.0.0'
+info:
+  version: 1.0.0
+  title: CodinIT API
+  license:
+    name: MIT
+servers:
+  - url: https://api.codinit.dev/v1
+paths:
+  /apps:
+    get:
+      summary: List all applications
+      operationId: listApps
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: An paged array of applications
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apps'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new AI-powered application with customizable models and frameworks
+      operationId: createApp
+      responses:
+        201:
+          description: Application creation successful with initial configuration
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /apps/{appId}:
+    get:
+      summary: Retrieve detailed information about a specific application including its configuration
+      operationId: getApp
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          description: The unique identifier of the application to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: Detailed application data including model settings and deployment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Apps'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update an existing application's configuration including model and framework settings
+      operationId: updateApp
+      responses:
+        200:
+          description: Application updated successfully with new configuration applied
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /models:
+    get:
+      summary: List available AI models compatible with CodinIT platform
+      operationId: listModels
+      parameters:
+        - name: provider
+          in: query
+          description: Filter models by provider (e.g., openai, anthropic)
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: Array of available AI models with their capabilities and providers
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Models'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    App:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        model:
+          type: string
+        framework:
+          type: string
+    Apps:
+      type: array
+      items:
+        $ref: '#/components/schemas/App'
+    Model:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        provider:
+          type: string
+        capabilities:
+          type: array
+          items:
+            type: string
+    Models:
+      type: array
+      items:
+        $ref: '#/components/schemas/Model'
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

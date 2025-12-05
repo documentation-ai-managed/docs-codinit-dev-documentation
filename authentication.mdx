@@ -1,0 +1,109 @@
+---
+title: Authentication
+description: Learn how to authenticate and secure your CodinIT applications
+---
+
+## Authentication Overview
+
+Authentication is crucial for securing your AI applications built with CodinIT. Our platform supports multiple authentication methods to ensure your apps remain secure while being flexible for different use cases.
+
+<Columns cols={2}>
+  <Card title="API Keys" icon="key" href="#api-keys">
+    Use API keys for programmatic access.
+  </Card>
+  <Card title="OAuth" icon="lock" href="#oauth">
+    Implement OAuth for user-based authentication.
+  </Card>
+</Columns>
+
+## API Keys
+
+API keys provide a simple way to authenticate requests to CodinIT services. They are ideal for server-to-server communication and automated processes.
+
+<Steps>
+  <Step title="Generate Key" icon="plus">
+    Create an API key in your dashboard.
+  </Step>
+  <Step title="Configure Environment" icon="settings">
+    Set the key in your environment variables.
+  </Step>
+  <Step title="Make Requests" icon="send">
+    Include the key in your API requests.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="JavaScript,cURL">
+  ```javascript
+const response = await fetch('/api/apps', {
+  headers: {
+    'Authorization': `Bearer ${process.env.CODINIT_API_KEY}`
+  }
+});
+  ```
+  ```bash
+curl -X GET \
+  https://api.codinit.dev/apps \
+  -H "Authorization: Bearer $CODINIT_API_KEY"
+  ```
+</CodeGroup>
+
+<Callout kind="info">Keep your API keys secure and never expose them in client-side code.</Callout>
+
+## OAuth Integration
+
+For user-facing applications, OAuth provides a secure way to authenticate users without handling passwords directly.
+
+<Tabs>
+  <Tab title="Setup" icon="settings">
+    Configure OAuth providers in your app settings.
+  </Tab>
+  <Tab title="Implementation" icon="code">
+    <CodeGroup tabs="React,Python">
+      ```javascript
+import { useCodinITAuth } from 'codinit/react';
+
+const { login } = useCodinITAuth();
+
+<button onClick={() => login('google')}>Login with Google</button>;
+      ```
+      ```python
+from codinit.auth import OAuthProvider
+
+provider = OAuthProvider('github')
+user = provider.authenticate(token)
+      ```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+## Security Best Practices
+
+Follow these guidelines to maintain security in your CodinIT applications.
+
+<ExpandableGroup>
+  <Expandable title="Rotate Keys Regularly" default-open="false">
+    Change API keys periodically to minimize exposure risks.
+  </Expandable>
+  <Expandable title="Use HTTPS" default-open="false">
+    Always use HTTPS for all API communications.
+  </Expandable>
+  <Expandable title="Implement Rate Limiting" default-open="false">
+    Protect against abuse with appropriate rate limits.
+  </Expandable>
+</ExpandableGroup>
+
+<Callout kind="danger">Never commit authentication credentials to version control systems.</Callout>
+
+## Troubleshooting
+
+Common authentication issues and their solutions.
+
+| Issue | Solution |
+|-------|----------|
+| Invalid API Key | Check key format and expiration |
+| OAuth Redirect Error | Verify callback URLs in provider settings |
+| Rate Limit Exceeded | Implement exponential backoff |
+
+<Expandable title="Advanced Configuration" default-open="false">
+  For complex authentication scenarios, explore our advanced configuration options including JWT tokens and custom providers.
+</Expandable>

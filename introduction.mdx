@@ -1,0 +1,87 @@
+---
+title: Introduction
+description: Overview of CodinIT and its core capabilities for building AI-powered applications
+---
+
+## Getting Started
+
+CodinIT is an AI app development platform that enables users to build AI-powered applications with ease. With its open-source architecture, users can prototype and develop full-stack apps quickly, leveraging the flexibility to use any model and framework. CodinIT's platform is designed to be vendor-agnostic, allowing for seamless integration and deployment.
+
+<Columns cols={3}>
+  <Card title="Quick Start" icon="zap" href="quick-start">
+    Get up and running in minutes with our guided setup.
+  </Card>
+  <Card title="API Reference" icon="code" href="api-reference">
+    Explore our comprehensive API documentation.
+  </Card>
+  <Card title="Community" icon="users" href="https://github.com/codinit/community">
+    Join our open-source community on GitHub.
+  </Card>
+</Columns>
+
+## Key Features
+
+CodinIT provides a robust foundation for AI application development. You can integrate any AI model or framework without vendor lock-in, ensuring flexibility and scalability for your projects.
+
+<Tabs>
+  <Tab title="Core Capabilities" icon="settings">
+    <Expandable title="Model Agnostic" default-open="true">
+      Work with any AI model - OpenAI, Anthropic, or custom models.
+    </Expandable>
+    <Expandable title="Framework Flexibility" default-open="false">
+      Use React, Vue, Angular, or any JavaScript framework.
+    </Expandable>
+  </Tab>
+  <Tab title="Deployment Options" icon="cloud">
+    <Steps>
+      <Step title="Prototype" icon="lightbulb">
+        Build and test your app locally with hot reloading.
+      </Step>
+      <Step title="Deploy" icon="rocket">
+        Deploy to cloud platforms like Vercel, Netlify, or AWS.
+      </Step>
+      <Step title="Scale" icon="trending-up">
+        Scale your application as user demand grows.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+<Callout kind="info">Start by creating your first AI-powered app using our interactive dashboard.</Callout>
+
+<CodeGroup tabs="JavaScript,Python">
+  ```javascript
+import { CodinIT } from 'codinit';
+
+const app = new CodinIT({
+  model: 'openai/gpt-4',
+  framework: 'react'
+});
+
+app.createComponent('ChatBot');
+  ```
+  ```python
+from codinit import CodinIT
+
+app = CodinIT(model='anthropic/claude', framework='flask')
+app.deploy()
+  ```
+</CodeGroup>
+
+## Why Choose CodinIT?
+
+Our platform stands out for its commitment to open-source principles and vendor neutrality. Whether you're building chatbots, recommendation systems, or complex AI workflows, CodinIT adapts to your needs.
+
+<ExpandableGroup>
+  <Expandable title="Open Source Benefits" default-open="false">
+    Access to source code, community contributions, and custom modifications.
+  </Expandable>
+  <Expandable title="Vendor Agnostic Design" default-open="false">
+    Switch models or frameworks without rewriting your application.
+  </Expandable>
+  <Expandable title="Rapid Prototyping" default-open="false">
+    Iterate quickly with built-in tools for testing and deployment.
+  </Expandable>
+</ExpandableGroup>
+
+<Callout kind="tip">Explore our documentation to learn more about advanced features and integrations.</Callout>

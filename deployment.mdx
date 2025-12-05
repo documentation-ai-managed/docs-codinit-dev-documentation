@@ -1,0 +1,211 @@
+---
+title: Deployment
+description: Learn how to deploy your CodinIT applications to production environments
+---
+
+## Deployment Options
+
+CodinIT offers multiple deployment strategies to suit different application needs, from simple prototypes to enterprise-scale solutions.
+
+<Columns cols={2}>
+  <Card title="Cloud Platforms" icon="cloud" href="#cloud-platforms">
+    Deploy to popular cloud providers.
+  </Card>
+  <Card title="Self-Hosted" icon="server" href="#self-hosted">
+    Run your own infrastructure.
+  </Card>
+</Columns>
+
+## Cloud Platforms
+
+Deploy your CodinIT applications to major cloud platforms with minimal configuration.
+
+<Tabs>
+  <Tab title="Vercel" icon="zap">
+    <Steps>
+      <Step title="Connect Repository" icon="link">
+        Link your GitHub repository to Vercel.
+      </Step>
+      <Step title="Configure Build" icon="settings">
+        Set build commands and environment variables.
+      </Step>
+      <Step title="Deploy" icon="rocket">
+        Push to main branch to trigger automatic deployment.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Netlify" icon="cloud">
+    <Steps>
+      <Step title="Import Project" icon="download">
+        Import your project from Git.
+      </Step>
+      <Step title="Set Build Settings" icon="settings">
+        Configure build command and publish directory.
+      </Step>
+      <Step title="Deploy" icon="send">
+        Deploy with one click.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="AWS" icon="server">
+    <CodeGroup tabs="CLI,Docker">
+      ```bash
+aws elasticbeanstalk create-application \
+  --application-name my-codinit-app \
+  --description "CodinIT AI App"
+      ```
+      ```dockerfile
+FROM codinit/base
+COPY . /app
+RUN npm install
+EXPOSE 3000
+CMD ["npm", "start"]
+      ```
+    </CodeGroup>
+  </Tab>
+</Tabs>
+
+<Callout kind="info">Most cloud platforms support CodinIT applications out of the box.</Callout>
+
+## Self-Hosted Deployment
+
+For full control over your infrastructure, deploy CodinIT applications on your own servers.
+
+<Steps>
+  <Step title="Prepare Server" icon="server">
+    Set up a server with Node.js and required dependencies.
+  </Step>
+  <Step title="Configure Environment" icon="settings">
+    Set environment variables and configuration files.
+  </Step>
+  <Step title="Build Application" icon="package">
+    Build your application for production.
+  </Step>
+  <Step title="Start Services" icon="play">
+    Start the application and monitor processes.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="Nginx,Docker Compose">
+  ```nginx
+server {
+  listen 80;
+  server_name your-domain.com;
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_set_header Host $host;
+  }
+}
+  ```
+  ```yaml
+version: '3.8'
+services:
+  codinit-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+  ```
+</CodeGroup>
+
+<ExpandableGroup>
+  <Expandable title="Scaling Considerations" default-open="false">
+    Plan for horizontal scaling as your user base grows.
+  </Expandable>
+  <Expandable title="Security Hardening" default-open="false">
+    Implement SSL, firewalls, and security best practices.
+  </Expandable>
+  <Expandable title="Monitoring Setup" default-open="false">
+    Add logging, metrics, and alerting for production monitoring.
+  </Expandable>
+</ExpandableGroup>
+
+## Environment Configuration
+
+Properly configure your application for different deployment environments.
+
+<Tabs>
+  <Tab title="Development" icon="settings">
+    Local development with hot reloading and debug tools.
+  </Tab>
+  <Tab title="Staging" icon="git-branch">
+    Pre-production environment for testing.
+  </Tab>
+  <Tab title="Production" icon="shield">
+    Optimized settings for live applications.
+  </Tab>
+</Tabs>
+
+<Callout kind="danger">Always use production-grade secrets management for sensitive configuration.</Callout>
+
+## Continuous Deployment
+
+Automate your deployment process with CI/CD pipelines.
+
+<Steps>
+  <Step title="Set Up CI" icon="git-branch">
+    Configure GitHub Actions or similar CI service.
+  </Step>
+  <Step title="Add Tests" icon="check-circle">
+    Include automated tests in your pipeline.
+  </Step>
+  <Step title="Configure CD" icon="arrow-right">
+    Set up automatic deployment to staging/production.
+  </Step>
+  <Step title="Monitor Releases" icon="eye">
+    Track deployment success and rollback if needed.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="GitHub Actions,Jenkins">
+  ```yaml
+name: Deploy to Production
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
+      - run: npm run build
+      - run: npm run deploy
+  ```
+  ```groovy
+pipeline {
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'npm install'
+        sh 'npm run build'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'npm run deploy'
+      }
+    }
+  }
+}
+  ```
+</CodeGroup>
+
+<Expandable title="Rollback Strategies" default-open="false">
+  Implement quick rollback mechanisms in case of deployment issues.
+</Expandable>
+
+## Troubleshooting Deployment
+
+Common deployment issues and solutions.
+
+| Issue | Solution |
+|--------|----------|
+| Build Failures | Check Node.js version and dependencies |
+| Environment Variables | Verify all required variables are set |
+| Port Conflicts | Ensure ports are available on target server |
+| SSL Certificate Errors | Configure certificates properly |
+
+<Callout kind="success">Successful deployment is the first step to sharing your AI applications with the world.</Callout>
